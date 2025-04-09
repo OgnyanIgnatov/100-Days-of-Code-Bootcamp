@@ -17,11 +17,7 @@ while score != STATES_COUNT:
     answer_state = screen.textinput(title=f"{score}/50", prompt="What's another state name?").title()
 
     if answer_state == "Exit":
-        states_to_learn = []
-
-        for s in states:
-            if not s in guessed_states:
-                states_to_learn.append(s)
+        states_to_learn = [s for s in states if not s in guessed_states]
 
         new_data = pandas.DataFrame(states_to_learn)
         new_data.to_csv("states_to_learn.csv")
