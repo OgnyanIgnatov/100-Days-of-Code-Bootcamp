@@ -1,6 +1,29 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import json
+
+def find_password():
+    website = website_entry.get()
+
+    try:
+        with open("password_manager.json", "r") as file:
+            data = json.load(file)
+            
+    except FileNotFoundError:
+        messagebox.showerror(title="FileNotFoundError", message="There is no such file")
+    
+    else:
+        if website in data:
+                    email = data[website]["email"]
+                    password = data[website]["password"]
+                    messagebox.showinfo(title=f"Info Found for {website}", message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(title="No Data Found", message="No detailes exist for this website")
+    finally:
+        website_entry.delete(0,END)
+
+
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
@@ -33,17 +56,28 @@ def add():
     website_data = website_entry.get()
     email_data = email_entry.get()
     password_data = password_entry.get()
+    new_data = {website_data:{"email": email_data,
+                              "password": password_data}}
 
     if len(website_data) == 0 or len(email_data) == 0 or len(password_data) == 0:
         messagebox.showerror(title="Oops", message="You have left some fields empty")
     else:
-        is_ok = messagebox.askokcancel(title=website_data, message=f"Details entered: \nEmail: {email_data}"
-                                                f"\nPassword: {password_data}\nDo you want to continue?:")
-        if is_ok:
-            with open("password_manager.txt", "a") as file:
-                file.write(f"{website_data} | {email_data} | {password_data}\n")
-                website_entry.delete(0,END)
-                password_entry.delete(0,END)
+        try:
+            with open("password_manager.json", "r") as file:
+                data = json.load(file)
+                data.update(new_data)
+                
+        except FileNotFoundError:
+            with open("password_manager.json", "w") as file:
+                json.dump(new_data, file, indent=4)
+        else:
+            with open("password_manager.json", "w") as file:
+                json.dump(data, file, indent=4)
+
+        finally:
+            website_entry.delete(0,END)
+            password_entry.delete(0,END)
+            
 
 
 
@@ -72,8 +106,8 @@ password_label.grid(row=3, column=0)
 
 #Inputs/Outputs
 
-website_entry = Entry(width=35)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = Entry(width=21)
+website_entry.grid(row=1, column=1)
 website_entry.focus()
 
 email_entry = Entry(width=35)
@@ -84,6 +118,9 @@ password_entry = Entry(width=21)
 password_entry.grid(row=3, column=1)
 
 #Buttons
+
+search_button = Button(text="Search", width=14, command=find_password)
+search_button.grid(row=1, column=2)
 
 pass_gen_button = Button(text="Generate Password", width=14, command=generate_password)
 pass_gen_button.grid(row=3, column=2)
