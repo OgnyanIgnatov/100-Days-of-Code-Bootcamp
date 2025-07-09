@@ -40,11 +40,12 @@ class QuizInterface:
         if self.quiz.still_has_questions():
             q_text = self.quiz.next_question()
             self.canvas.itemconfig(self.question, text=q_text)
-            self.score_label.config(text=f"Score: {self.quiz.score}")
         else:
             self.canvas.itemconfig(self.question, text="End of Quiz")
             self.true_button.config(state="disabled")
             self.false_button.config(state="disabled")
+            
+        self.score_label.config(text=f"Score: {self.quiz.score}")
 
     def true_check_button(self):
         is_right = self.quiz.check_answer("True")
