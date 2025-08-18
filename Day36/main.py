@@ -12,7 +12,7 @@ MY_PASS = ":)"
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-news_url = f"https://newsapi.org/v2/everything?q={COMPANY_NAME}&apiKey={STOCK_API_KEY}"
+news_url = f"https://newsapi.org/v2/everything?q={COMPANY_NAME}&apiKey={NEWS_API_KEY}"
 
 stock_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={STOCK}&apikey={STOCK_API_KEY}"
 stock_request = requests.get(url=stock_url)
