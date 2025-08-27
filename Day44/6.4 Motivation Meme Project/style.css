@@ -1,0 +1,31 @@
+
+
+html{
+    background-color: black;
+}
+div{
+    width: 50%;
+    margin-left: 25%;
+    align-items: center;
+    color: white;
+    font-family: "Libre Baskerville", cursive;
+    font-size: 20px;
+    text-align: center;
+    padding: 20px;
+}
+
+#GirlImg{
+    width: 100%;
+    margin: auto;
+    border: 5px solid white;
+    display: block;
+}
+
+#main_header{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#secondary_header{
+    font-size: 0.75rem;
+}
