@@ -2,6 +2,9 @@ import requests,spotipy
 from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyOAuth
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SPOTIFY_CLIENT_ID = os.getenv(key="CLIENT_ID")
 CLIENT_SECRET = os.getenv(key="CLIENT_SECRET")
