@@ -29,7 +29,7 @@
                     </div> -->
                     <!-- Divider-->
                     <!-- <hr class="my-4" /> -->
-                    {% for i in data: %}
+                    {% for i in data %}
                     <div class="post-preview">
                         <a href="{{ url_for('post', id=i['id']) }}">
                             <h2 class="post-title">{{ i['title'] }}</h2>
